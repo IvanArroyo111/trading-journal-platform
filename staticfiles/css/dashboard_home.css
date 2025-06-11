@@ -1,0 +1,308 @@
+/* 
+  Dashboard Home Stylesheet
+  -------------------------
+  Main layout, card, table, button, and analytics styles for the Trading Journal dashboard.
+  All colors and effects are consistent with the dark theme.
+*/
+
+/* Main dashboard background */
+.dashboard-main-bg {
+  background: #101014 !important;
+  min-height: 100vh;
+  width: 100vw;
+  margin: 0 !important;
+  padding: 0 4vw 40px 2vw;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+/* Card and analytics containers */
+.dashboard-card,
+.dashboard-analytics,
+.dashboard-comparison {
+  background: #18181c !important;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.18);
+  border: 1.5px solid #23232a;
+  color: #e0e6ed;
+}
+
+/* Comparison card hover and transition effects */
+.dashboard-comparison-this,
+.dashboard-comparison-last {
+  transition: 
+    box-shadow 0.25s cubic-bezier(.4,2,.6,1), 
+    transform 0.22s cubic-bezier(.4,2,.6,1),
+    border-color 0.22s;
+  cursor: pointer;
+}
+.dashboard-comparison-this:hover {
+  box-shadow: 0 8px 36px 0 rgba(0,230,208,0.18), 0 0 0 2px #00e6d0;
+  transform: translateY(-6px) scale(1.025);
+  border-color: #00e6d0;
+  background: #1e2227 !important;
+}
+.dashboard-comparison-last:hover {
+  box-shadow: 0 8px 36px 0 rgba(0,124,240,0.18), 0 0 0 2px #007cf0;
+  transform: translateY(-6px) scale(1.025);
+  border-color: #007cf0;
+  background: #1e2227 !important;
+}
+
+/* Comparison card color states */
+.dashboard-comparison-this {
+  border: 2px solid #00e6d0 !important;
+  background: #18181c !important;
+  color: #00e6d0 !important;
+}
+.dashboard-comparison-last {
+  border: 2px solid #007cf0 !important;
+  background: #18181c !important;
+  color: #007cf0 !important;
+}
+
+/* Primary dashboard button */
+.dashboard-btn,
+.dashboard-btn:visited {
+  background: linear-gradient(90deg, #00e6d0 60%, #007cf0 100%) !important;
+  color: #101014 !important;
+  border-radius: 12px;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0,230,208,0.08);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
+  text-decoration: none;
+  padding: 12px 24px;
+  display: inline-block;
+  font-size: 1rem;
+  border: none;
+}
+.dashboard-btn:hover {
+  background: #007cf0 !important;
+  color: #fff !important;
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 6px 16px rgba(0,230,208,0.18);
+}
+
+/* Table wrapper and table styles */
+.dashboard-table-wrapper {
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,230,208,0.07);
+  background: #18181c;
+  margin-bottom: 32px;
+}
+table {
+  background: #18181c !important;
+  color: #e0e6ed !important;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+th, td {
+  border: 1px solid #23232a !important;
+}
+th {
+  background: #23232a !important;
+  color: #00e6d0 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 13px;
+  padding: 14px;
+}
+td {
+  padding: 12px;
+}
+tr {
+  transition: background 0.15s;
+}
+tr:hover {
+  background: #23232a !important;
+}
+
+/* Ticker link styles */
+.trade-ticker-link {
+  background-color: #23232a;
+  color: #00e6d0;
+  padding: 4px 14px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 15px;
+  transition: background 0.15s, color 0.15s;
+}
+.trade-ticker-link:hover {
+  background: #00e6d0;
+  color: #101014;
+}
+
+/* Edit and delete button styles */
+.edit-btn {
+  background: transparent;
+  color: #00e6d0;
+  border: 2px solid #00e6d0;
+  padding: 6px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  margin-right: 8px;
+  transition: background 0.15s, color 0.15s, border 0.15s;
+}
+.edit-btn:hover {
+  background: #00e6d0;
+  color: #101014;
+  border-color: #00e6d0;
+}
+.delete-btn {
+  background: transparent;
+  color: #dc2626;
+  border: 2px solid #dc2626;
+  padding: 6px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.15s, color 0.15s, border 0.15s;
+}
+.delete-btn:hover {
+  background: #dc2626;
+  color: #fff;
+  border-color: #dc2626;
+}
+
+/* Responsive padding for dashboard background */
+@media (max-width: 900px) {
+  .dashboard-main-bg {
+    padding-left: 2vw;
+    padding-right: 2vw;
+  }
+}
+@media (max-width: 600px) {
+  .dashboard-main-bg {
+    padding-left: 0.5vw;
+    padding-right: 0.5vw;
+  }
+}
+
+/* Analytics category spacing */
+.analytics-category {
+  margin-bottom: 12px;
+}
+.analytics-category:last-child,
+.analytics-category:nth-child(4) {
+  margin-bottom: 0;
+}
+
+/* Chart and card visual reset */
+.dashboard-card > div[style*="canvas"], 
+.dashboard-card canvas, 
+#equityChart, 
+#equityChart canvas {
+  box-shadow: none !important;
+  filter: none !important;
+  outline: none !important;
+  background: none !important;
+}
+
+/* Comparison section styles */
+.comparison-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 18px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.comparison-metric-label {
+  font-size: 1.05rem;
+  color: #b0bac9;
+}
+.comparison-metric-value {
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.comparison-metric-arrow-up {
+  font-size: 1.5rem;
+  margin-right: 6px;
+  color: #04b67d;
+  font-weight: bold;
+}
+.comparison-metric-arrow-down {
+  font-size: 1.5rem;
+  margin-right: 6px;
+  color: #bf2424;
+  font-weight: bold;
+}
+.comparison-divider {
+  width: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 3;
+}
+.comparison-divider-bar {
+  width: 2px;
+  height: 90%;
+  background: linear-gradient(180deg, #00e6d0 0%, #007cf0 100%);
+  margin: 0 auto;
+  border-radius: 2px;
+  opacity: 0.18;
+  position: absolute;
+  left: 50%;
+  top: 5%;
+  z-index: 1;
+}
+.comparison-divider-badge {
+  background: linear-gradient(90deg, #00e6d0 60%, #007cf0 100%);
+  color: #101014;
+  font-weight: 900;
+  font-size: 1.1rem;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 12px rgba(0,230,208,0.13);
+  border: 3px solid #23232a;
+  position: relative;
+  z-index: 2;
+  margin: 0 auto;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* Dashboard row layout for tall cards and analytics */
+.dashboard-row-tall {
+  height: 650px;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 40px;
+  flex-wrap: nowrap;
+  max-width: 2385px;    
+}
+.dashboard-row-tall .dashboard-card,
+.dashboard-row-tall .dashboard-analytics {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.dashboard-row-tall .dashboard-card > div {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Equity chart sizing and layout */
+#equityChart {
+  flex: 1 1 0;
+  width: 100% !important;
+  height: 100% !important;
+  max-height: 100%;
+  min-height: 0;
+  display: block;
+}

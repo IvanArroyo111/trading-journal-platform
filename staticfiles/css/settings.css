@@ -1,0 +1,125 @@
+/*
+  Main stylesheet for TraderCore settings page.
+  Provides layout, form styling, and responsive design for account settings.
+*/
+
+/* Main background for settings page */
+.settings-main-bg {
+  background: #101014 !important;
+  min-height: 100vh;
+  width: 100vw;
+  margin: 0 !important;
+  padding: 0 4vw 40px 2vw;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+/* Settings card container */
+.settings-card {
+  background: #18181c !important;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.18);
+  border: 1.5px solid #23232a;
+  color: #e0e6ed;
+  max-width: 520px;
+  margin: 40px auto 0 auto;
+  padding: 36px 36px 28px 36px;
+}
+/* Settings card header */
+.settings-card h2 {
+  color: #00e6d0;
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 24px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  text-align: left;
+}
+/* Form group spacing */
+.settings-form-group {
+  margin-bottom: 22px;
+}
+/* Label styling */
+.settings-card label {
+  color: #b0bac9;
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+  font-size: 1rem;
+}
+/* Input fields styling */
+.settings-card input[type="email"],
+.settings-card input[type="password"] {
+  width: 100%;
+  background: #23232a;
+  color: #e0e6ed;
+  border: 1.5px solid #00e6d0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 1rem;
+  margin-bottom: 0;
+  outline: none;
+  transition: border 0.2s;
+}
+/* Input focus effect */
+.settings-card input:focus {
+  border-color: #007cf0;
+}
+/* Submit button styling */
+.settings-card button[type="submit"] {
+  background: linear-gradient(90deg, #00e6d0 60%, #007cf0 100%) !important;
+  color: #101014 !important;
+  border-radius: 12px;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0,230,208,0.08);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
+  text-decoration: none;
+  padding: 14px 0;
+  display: block;
+  font-size: 1.1rem;
+  border: none;
+  width: 100%;
+  margin-top: 10px;
+  cursor: pointer;
+}
+/* Submit button hover effect */
+.settings-card button[type="submit"]:hover {
+  background: #007cf0 !important;
+  color: #fff !important;
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 6px 16px rgba(0,230,208,0.18);
+}
+/* Danger zone section for account deletion */
+.danger-zone {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1.5px solid #23232a;
+}
+/* Danger zone header */
+.danger-zone h3 {
+  color: #ff4d6d;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+}
+/* Danger zone button styling */
+.danger-zone button {
+  background: linear-gradient(90deg, #e95318 0%, #fc1d46 100%) !important;
+  color: #fff !important;
+  border-radius: 12px;
+  font-weight: 700;
+  border: none;
+  padding: 14px 0;
+  width: 100%;
+  font-size: 1.1rem;
+  margin-top: 8px;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
+  cursor: pointer;
+}
+/* Danger zone button hover effect */
+.danger-zone button:hover {
+  background: #fc1d46 !important;
+  color: #fff !important;
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 6px 16px rgba(252,29,70,0.18);
+}

@@ -1,0 +1,35 @@
+{% extends 'dashboard/base_dashboard.html' %}
+
+{% load static %}
+
+{% block title %}Delete Trade{% endblock %}
+
+{% block content %}
+<!-- Delete Confirmation Stylesheet -->
+<link rel="stylesheet" href="{% static 'css/delete_confirm.css' %}">
+
+<div class="delete-bg">
+  <div class="delete-card">
+    <!-- Deletion Header -->
+    <h2>Confirm Deletion</h2>
+    <div class="delete-warning">
+      This action cannot be undone.
+    </div>
+    <p>
+      Are you sure you want to delete the trade for <strong>{{ trade.ticker }}</strong> on {{ trade.date }}?
+    </p>
+    <!-- Delete Confirmation Form -->
+    <form method="POST" style="width:100%;">
+      {% csrf_token %}
+      <div class="delete-actions">
+        <button type="submit">
+          Yes, Delete
+        </button>
+        <a href="{% url 'trade-log' %}" class="cancel-link">
+          Cancel
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

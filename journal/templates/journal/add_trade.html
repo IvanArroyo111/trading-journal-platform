@@ -1,0 +1,106 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+
+{% block title %}Add Trade{% endblock %}
+
+{% block content %}
+<!-- Add Trade Stylesheet -->
+<link rel="stylesheet" href="{% static 'css/add_trade.css' %}">
+
+<div class="add-trade-bg">
+  <div class="add-trade-card">
+    <!-- Add Trade Form Section -->
+    <div class="add-trade-form-section">
+      <form method="POST" enctype="multipart/form-data" autocomplete="off">
+        {% csrf_token %}
+        <div class="add-trade-form-grid">
+          <h2>Add New Trade</h2>
+          {# Render all fields except notes and screenshot #}
+          {% for field in form.visible_fields %}
+            {% if field.name == "notes" or field.name == "screenshot" %}
+              {# Skipped here, rendered below #}
+            {% else %}
+              <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.help_text %}
+                  <span class="helptext">{{ field.help_text }}</span>
+                {% endif %}
+                {% if field.errors %}
+                  <ul class="errorlist">
+                    {% for error in field.errors %}
+                      <li>{{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </div>
+            {% endif %}
+          {% endfor %}
+          {# Render notes field separately for custom styling #}
+          {% if form.notes %}
+            <div class="form-group form-group-quick-notes">
+              <label for="{{ form.notes.id_for_label }}">Quick Notes</label>
+              <textarea
+                name="{{ form.notes.name }}"
+                id="{{ form.notes.id_for_label }}"
+                rows="2"
+                style="min-height:38px;max-height:80px;resize:vertical;width:100%;background:#23232a;color:#e0e6ed;border:1.5px solid #00e6d0;border-radius:10px;padding:10px 14px;font-size:1rem;margin-bottom:0;outline:none;transition:border 0.2s;"
+                {% if form.notes.field.required %}required{% endif %}
+              >{{ form.notes.value|default_if_none:'' }}</textarea>
+              {% if form.notes.help_text %}
+                <span class="helptext">{{ form.notes.help_text }}</span>
+              {% endif %}
+              {% if form.notes.errors %}
+                <ul class="errorlist">
+                  {% for error in form.notes.errors %}
+                    <li>{{ error }}</li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </div>
+          {% endif %}
+          {# Render screenshot field separately #}
+          {% if form.screenshot %}
+            <div class="form-group form-group-notes">
+              {{ form.screenshot.label_tag }}
+              {{ form.screenshot }}
+              {% if form.screenshot.help_text %}
+                <span class="helptext">{{ form.screenshot.help_text }}</span>
+              {% endif %}
+              {% if form.screenshot.errors %}
+                <ul class="errorlist">
+                  {% for error in form.screenshot.errors %}
+                    <li>{{ error }}</li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </div>
+          {% endif %}
+          <button type="submit">
+            Save Trade
+          </button>
+        </div>
+      </form>
+    </div>
+    <!-- Add Trade Info Section -->
+    <div class="add-trade-info-section">
+      <h3>Tips for Logging Trades</h3>
+      <ul>
+        <li>Double-check entry/exit prices and dates.</li>
+        <li>Use the notes field for lessons or emotions.</li>
+        <li>Attach screenshots for future visual reference.</li>
+        <li>Record your reasoning for entering and exiting each trade.</li>
+        <li>Review your trades weekly to spot patterns and mistakes.</li>
+        <li>Be honest by logging both wins and losses for true progress.</li>
+        <li>Set a goal for what you want to learn from each trade.</li>
+      </ul>
+      <div>
+        <h3>Why Log Trades?</h3>
+        <p>
+          Keeping a detailed journal helps you spot patterns, improve discipline, and track your progress over time.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

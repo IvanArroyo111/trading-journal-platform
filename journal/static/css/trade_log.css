@@ -1,0 +1,161 @@
+/* 
+  Trade Log Stylesheet
+  --------------------
+  Styles for the trade log table and related actions.
+  Consistent with the dark dashboard theme.
+*/
+
+/* Main background for trade log page */
+.trade-log-main-bg {
+  background: #101014 !important;
+  min-height: 100vh;
+  width: 100vw;
+  margin: 0 !important;
+  padding: 0 4vw 40px 2vw;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+/* Table wrapper styles */
+.trade-log-table-wrapper {
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,230,208,0.07);
+  background: #18181c;
+  margin-bottom: 32px;
+}
+
+/* Table styles */
+table {
+  background: #18181c !important;
+  color: #e0e6ed !important;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+th, td {
+  border: 1px solid #23232a !important;
+}
+th {
+  background: #23232a !important;
+  color: #00e6d0 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 13px;
+  padding: 14px;
+}
+td {
+  padding: 12px;
+}
+tr {
+  transition: background 0.15s;
+}
+tr:hover {
+  background: #23232a !important;
+}
+
+/* Ticker link styles */
+.trade-ticker-link {
+  background-color: #23232a;
+  color: #00e6d0;
+  padding: 4px 14px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 15px;
+  transition: background 0.15s, color 0.15s;
+}
+.trade-ticker-link:hover {
+  background: #00e6d0;
+  color: #101014;
+}
+
+/* View button styles */
+.view-btn {
+  background: transparent;
+  color: #1b62c1;
+  border: 2px solid #1b62c1;
+  padding: 6px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  margin-right: 8px;
+  transition: background 0.15s, color 0.15s, border 0.15s;
+  font-size: 0.98rem;
+  display: inline-block;
+}
+.view-btn:hover {
+  background: #1b62c1;
+  color: #fff;
+  border-color: #1b62c1;
+}
+
+/* Edit button styles */
+.edit-btn {
+  background: transparent;
+  color: #00e6d0;
+  border: 2px solid #00e6d0;
+  padding: 6px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  margin-right: 8px;
+  transition: background 0.15s, color 0.15s, border 0.15s;
+}
+.edit-btn:hover {
+  background: #00e6d0;
+  color: #101014;
+  border-color: #00e6d0;
+}
+
+/* Delete button styles */
+.delete-btn {
+  background: transparent;
+  color: #dc2626;
+  border: 2px solid #dc2626;
+  padding: 6px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.15s, color 0.15s, border 0.15s;
+}
+.delete-btn:hover {
+  background: #dc2626;
+  color: #fff;
+  border-color: #dc2626;
+}
+
+/* Primary action button styles */
+.trade-log-btn, .trade-log-btn:visited {
+  background: linear-gradient(90deg, #00e6d0 60%, #007cf0 100%) !important;
+  color: #101014 !important;
+  border-radius: 12px;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0,230,208,0.08);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
+  text-decoration: none;
+  padding: 12px 24px;
+  display: inline-block;
+  font-size: 1rem;
+  border: none;
+}
+.trade-log-btn:hover {
+  background: #007cf0 !important;
+  color: #fff !important;
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 6px 16px rgba(0,230,208,0.18);
+}
+
+/* Responsive padding for trade log background */
+@media (max-width: 900px) {
+  .trade-log-main-bg {
+    padding-left: 2vw;
+    padding-right: 2vw;
+  }
+}
+@media (max-width: 600px) {
+  .trade-log-main-bg {
+    padding-left: 0.5vw;
+    padding-right: 0.5vw;
+  }
+}

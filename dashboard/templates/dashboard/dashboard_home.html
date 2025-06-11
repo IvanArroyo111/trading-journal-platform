@@ -1,0 +1,390 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<!-- Dashboard Home Stylesheet -->
+<link rel="stylesheet" href="{% static 'css/dashboard_home.css' %}">
+
+<div class="dashboard-main-bg">
+
+  <!-- Header Section -->
+  <div style="margin-top: -10px; margin-bottom: 30px;">
+    <h1 style="
+      font-family: 'Segoe UI', Arial, sans-serif;
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: #00e6d0;
+    ">
+      Performance Summary
+    </h1>
+    <div style="
+      height: 4px;
+      width: 100%;
+      background: linear-gradient(90deg, #00e6d0 0%, #007cf0 100%);
+      border-radius: 2px;
+    "></div>
+  </div>
+
+  <!-- Quick Filter Buttons -->
+  <div style="display: flex; gap: 16px; margin-bottom: 32px;">
+    <a href="?days=30" class="dashboard-btn">Last 30 Days</a>
+    <a href="?days=60" class="dashboard-btn">Last 60 Days</a>
+    <a href="?days=90" class="dashboard-btn">Last 90 Days</a>
+    <a href="?days=all" class="dashboard-btn">All Time</a>
+    <a href="?compare=1" class="dashboard-btn">Compare to Last Month</a>
+  </div>
+
+  {% if compare %}
+    <!-- Monthly Comparison Cards -->
+    <div style="
+      display: flex;
+      gap: 0;
+      flex-wrap: wrap;
+      margin-bottom: 44px;
+      align-items: stretch;
+      position: relative;
+    ">
+      <!-- This Month Card -->
+      <div class="dashboard-card dashboard-comparison-this" style="
+        flex: 1;
+        padding: 38px 24px 38px 32px;
+        text-align: center;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        box-shadow: 0 6px 32px 0 rgba(0,230,208,0.10);
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      ">
+        <div class="comparison-title" style="color: #00e6d0;">This Month</div>
+        <div style="margin-bottom: 18px;">
+          <span class="comparison-metric-label">Total PnL</span>
+          <div class="comparison-metric-value" style="color: {% if this_total_pnl >= 0 %}#04b67d{% else %}#bf2424{% endif %};">
+            {% if this_total_pnl >= 0 %}
+              <span class="comparison-metric-arrow-up">▲</span>
+            {% elif this_total_pnl < 0 %}
+              <span class="comparison-metric-arrow-down">▼</span>
+            {% endif %}
+            ${{ this_total_pnl|floatformat:2 }}
+          </div>
+        </div>
+        <div style="margin-bottom: 12px;">
+          <span class="comparison-metric-label">Win Rate</span>
+          <div class="comparison-metric-value" style="color: #2563eb;">
+            {% if this_win_rate >= last_win_rate %}
+              <span class="comparison-metric-arrow-up">▲</span>
+            {% else %}
+              <span class="comparison-metric-arrow-down">▼</span>
+            {% endif %}
+            {{ this_win_rate|floatformat:2 }}%
+          </div>
+        </div>
+        <div style="margin-bottom: 12px;">
+          <span class="comparison-metric-label">Average R:R</span>
+          <div class="comparison-metric-value" style="color: #f59e42;">
+            {{ this_avg_rr|floatformat:2 }}
+          </div>
+        </div>
+        <div>
+          <span class="comparison-metric-label">Trades Taken</span>
+          <div class="comparison-metric-value" style="color: #e0e6ed;">
+            {{ this_trades_taken }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Vertical Divider with VS Badge -->
+      <div class="comparison-divider">
+        <div class="comparison-divider-bar"></div>
+        <div class="comparison-divider-badge">VS</div>
+      </div>
+
+      <!-- Last Month Card -->
+      <div class="dashboard-card dashboard-comparison-last" style="
+        flex: 1;
+        padding: 38px 32px 38px 24px;
+        text-align: center;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        box-shadow: 0 6px 32px 0 rgba(0,124,240,0.10);
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      ">
+        <div class="comparison-title" style="color: #007cf0;">Last Month</div>
+        <div style="margin-bottom: 18px;">
+          <span class="comparison-metric-label">Total PnL</span>
+          <div class="comparison-metric-value" style="color: {% if last_total_pnl >= 0 %}#04b67d{% else %}#bf2424{% endif %};">
+            {% if last_total_pnl >= 0 %}
+              <span class="comparison-metric-arrow-up">▲</span>
+            {% elif last_total_pnl < 0 %}
+              <span class="comparison-metric-arrow-down">▼</span>
+            {% endif %}
+            ${{ last_total_pnl|floatformat:2 }}
+          </div>
+        </div>
+        <div style="margin-bottom: 12px;">
+          <span class="comparison-metric-label">Win Rate</span>
+          <div class="comparison-metric-value" style="color: #2563eb;">
+            {% if last_win_rate >= this_win_rate %}
+              <span class="comparison-metric-arrow-up">▲</span>
+            {% else %}
+              <span class="comparison-metric-arrow-down">▼</span>
+            {% endif %}
+            {{ last_win_rate|floatformat:2 }}%
+          </div>
+        </div>
+        <div style="margin-bottom: 12px;">
+          <span class="comparison-metric-label">Average R:R</span>
+          <div class="comparison-metric-value" style="color: #f59e42;">
+            {{ last_avg_rr|floatformat:2 }}
+          </div>
+        </div>
+        <div>
+          <span class="comparison-metric-label">Trades Taken</span>
+          <div class="comparison-metric-value" style="color: #e0e6ed;">
+            {{ last_trades_taken }}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <!-- Chart and Analytics Side-by-Side Section -->
+    <div class="dashboard-row-tall">
+      <!-- Equity Curve Chart -->
+      <div class="dashboard-card" style="
+        flex: 0 0 70%;
+        max-width: 65%;
+        min-width: 320px;
+        padding: 36px 24px;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      ">
+        <h2 style="
+          text-align: center;
+          font-size: 24px;
+          font-weight: bold;
+          margin-bottom: 20px;
+          color: #00e6d0;
+        ">
+          Gross Profit
+        </h2>
+        <div style="flex: 1 1 0; display: flex; flex-direction: column;">
+          <canvas id="equityChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Analytics Summary -->
+      <div class="dashboard-card dashboard-analytics" style="
+        flex: 0 0 30%;
+        max-width: 30%;
+        min-width: 260px;
+        padding: 36px 24px;
+        position: relative;
+        overflow: hidden;
+        margin-top: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+      ">
+        <div style="
+          position: absolute;
+          top: -30px;
+          right: -30px;
+          width: 90px;
+          height: 90px;
+          background: radial-gradient(circle, #00e6d0 0%, #007cf0 80%, transparent 100%);
+          opacity: 0.13;
+          z-index: 0;
+        "></div>
+        <h2 style="
+          text-align: center;
+          font-size: 1.7rem;
+          font-weight: 800;
+          margin-top: 100px;
+          margin-bottom: 0px;
+          color: #00e6d0;
+          letter-spacing: 0.5px;
+          text-transform: uppercase;
+          z-index: 1;
+          position: relative;
+        ">
+          Analytics
+        </h2>
+        <div style="
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 48px 32px;
+          width: 100%;
+          z-index: 1;
+          position: relative;
+          justify-items: center;
+          align-items: center;
+        ">
+          <div class="analytics-category" style="text-align: center;">
+            <div style="
+              font-size: 1.1rem;
+              color: #b0bac9;
+              font-weight: 600;
+              margin-top: 32px;
+              margin-bottom: 12px;
+            ">
+              Total PnL
+            </div>
+            <div style="font-size: 2rem; font-weight: bold; color: #04b67d;">
+              ${{ total_pnl|floatformat:2 }}
+            </div>
+          </div>
+          <div class="analytics-category" style="text-align: center;">
+            <div style="
+              font-size: 1.1rem;
+              color: #b0bac9;
+              font-weight: 600;
+              margin-top: 32px;
+              margin-bottom: 12px;
+            ">
+              Win Rate
+            </div>
+            <div style="font-size: 2rem; font-weight: bold; color: #007cf0;">
+              {{ win_rate|floatformat:2 }}%
+            </div>
+          </div>
+          <div class="analytics-category" style="text-align: center;">
+            <div style="
+              font-size: 1.1rem;
+              color: #b0bac9;
+              font-weight: 600;
+              margin-bottom: 12px;
+            ">
+              Average R:R
+            </div>
+            <div style="font-size: 2rem; font-weight: bold; color: #f59e42;">
+              {{ avg_rr|floatformat:2 }}
+            </div>
+          </div>
+          <div class="analytics-category" style="text-align: center;">
+            <div style="
+              font-size: 1.1rem;
+              color: #b0bac9;
+              font-weight: 600;
+              margin-bottom: 12px;
+            ">
+              Trades Taken
+            </div>
+            <div style="font-size: 2rem; font-weight: bold; color: #e0e6ed;">
+              {{ trades_taken }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  <!-- Add Trade Button -->
+  <div style="margin: 110px 0 90px 0;">
+    <a href="{% url 'add-trade' %}" class="dashboard-btn">+ Add Trade</a>
+  </div>
+
+  <!-- Inject Chart Data as JSON -->
+  {{ equity_dates|json_script:"equity-dates" }}
+  {{ equity_values|json_script:"equity-values" }}
+
+  <!-- Chart.js and Dashboard Script -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="{% static 'js/dashboard_home.js' %}"></script>
+
+  <!-- Recent Trades Section -->
+  <div style="margin-top: -30px; margin-bottom: 30px;">
+    <h2 style="
+      font-family: Segoe UI;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: #00e6d0;
+    ">
+      Recent Trades
+    </h2>
+  </div>
+
+  <!-- Recent Trades Table -->
+  <div class="dashboard-table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Ticker</th>
+          <th>PnL</th>
+          <th>Setup</th>
+          <th>R:R</th>
+          <th>Actions</th>
+          <th>Screenshot</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for trade in recent_trades %}
+        <tr>
+          <td>{{ trade.date }}</td>
+          <td>
+            <span class="trade-ticker-link" style="cursor: default; pointer-events: none;">
+              {{ trade.ticker }}
+            </span>
+          </td>
+          <td style="color: {% if trade.pnl >= 0 %}#04b67d{% else %}#bf2424{% endif %}; font-weight: bold;">
+            ${{ trade.pnl|floatformat:2 }}
+          </td>
+          <td>{{ trade.setup }}</td>
+          <td>
+            {% if trade.rr is not None %}
+              {{ trade.rr|floatformat:2 }}
+            {% else %}
+              <span style="color:#888;">—</span>
+            {% endif %}
+            <div style="font-size:11px;color:#666;">
+              entry: {{ trade.entry_price }}, stop: {{ trade.stop_loss }}, target: {{ trade.target_price }}
+            </div>
+          </td>
+          <td>
+            <a href="{% url 'edit-trade' trade.id %}" class="edit-btn">Edit</a>
+            <a href="{% url 'delete-trade' trade.id %}" class="delete-btn">Delete</a>
+          </td>
+          <td>
+            {% if trade.screenshot %}
+              <a href="{{ trade.screenshot.url }}" target="_blank">
+                <img src="{{ trade.screenshot.url }}" alt="Screenshot"
+                  style="height: 60px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.10);" />
+              </a>
+            {% else %}
+              <span style="color: #aaa;">—</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="7" style="padding: 16px; text-align: center; color: #888;">No recent trades.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- View Full Trade Log Button -->
+  <div style="margin-top: 24px;">
+    <a href="{% url 'trade-log' %}" class="dashboard-btn">View Full Trade Log</a>
+  </div>
+
+</div>
+{% endblock %}

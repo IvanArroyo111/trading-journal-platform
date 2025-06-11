@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Dashboard{% endblock %}</title>
+    <!-- Main dashboard stylesheet -->
+    <link rel="stylesheet" href="{% static 'css/base_dashboard.css' %}">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar navigation with toggle and links -->
+        <div class="sidebar" id="sidebar">
+            <button class="toggle-arrow" id="sidebarToggle" aria-label="Expand sidebar">&rarr;</button>
+            <div class="sidebar-links-container">
+                <!-- Dashboard link -->
+                <a href="{% url 'dashboard-home' %}" class="sidebar-link">
+                    <img src="{% static 'images/dashboard_symbol.png' %}" alt="Dashboard">
+                    <span class="sidebar-label">Dashboard</span>
+                </a>
+                <!-- Trade Log link -->
+                <a href="{% url 'trade-log' %}" class="sidebar-link">
+                    <img src="{% static 'images/journal_symbol.png' %}" alt="Trade Log">
+                    <span class="sidebar-label">Trade Log</span>
+                </a>
+                <!-- Analytics link -->
+                <a href="{% url 'trade-reports' %}" class="sidebar-link">
+                    <img src="{% static 'images/analytics_symbol.png' %}" alt="Analytics">
+                    <span class="sidebar-label">Analytics</span>
+                </a>
+                <!-- Calendar link -->
+                <a href="{% url 'trade-calendar' %}" class="sidebar-link">
+                    <img src="{% static 'images/calendar_symbol.png' %}" alt="calendar">
+                    <span class="sidebar-label">Calendar</span>
+                </a>
+                <!-- Settings link -->
+                <a href="{% url 'account-settings' %}" class="sidebar-link">
+                    <img src="{% static 'images/settings_symbol.png' %}" alt="Settings">
+                    <span class="sidebar-label">Settings</span>
+                </a>
+                <!-- Logout form -->
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="sidebar-link" aria-label="Logout">
+                        <img src="{% static 'images/logout_symbol.png' %}" alt="Logout">
+                        <span class="sidebar-label">Logout</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Main content area -->
+        <div class="main-content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+    <!-- Sidebar toggle script -->
+    <script src="{% static 'js/base_dashboard.js' %}"></script>
+</body>
+</html>

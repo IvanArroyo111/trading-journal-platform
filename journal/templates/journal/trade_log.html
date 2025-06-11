@@ -1,0 +1,87 @@
+{% extends 'dashboard/base_dashboard.html' %}
+
+{% load static %}
+
+{% block title %}All Trades{% endblock %}
+
+{% block content %}
+<!-- Trade Log Stylesheet -->
+<link rel="stylesheet" href="{% static 'css/trade_log.css' %}">
+
+<div class="trade-log-main-bg">
+  <!-- Header Section -->
+  <div style="margin-top: -10px; margin-bottom: 30px;">
+    <h1 style="font-family: 'Segoe UI', Arial, sans-serif; font-size: 2.5rem; font-weight: 800; margin-bottom: 8px; letter-spacing: 0.5px; text-transform: uppercase; color: #00e6d0;">
+      All Trades
+    </h1>
+    <div style="height: 4px; width: 100%; background: linear-gradient(90deg, #00e6d0 0%, #007cf0 100%); border-radius: 2px;"></div>
+  </div>
+
+  <!-- Add Trade Button -->
+  <div style="margin-bottom: 24px;">
+    <a href="{% url 'add-trade' %}" class="trade-log-btn" style="margin-left: 0;">+ Add Trade</a>
+  </div>
+
+  <!-- Trades Table -->
+  <div class="trade-log-table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Ticker</th>
+          <th>PnL</th>
+          <th>Setup</th>
+          <th>R:R</th>
+          <th>Actions</th>
+          <th>Screenshot</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for trade in trades %}
+        <tr>
+          <td>{{ trade.date }}</td>
+          <td>
+            <a href="{% url 'trade-detail' trade.id %}" class="trade-ticker-link">
+              {{ trade.ticker }}
+            </a>
+          </td>
+          <td style="color: {% if trade.annotated_pnl >= 0 %}#04b67d{% else %}#bf2424{% endif %}; font-weight: bold;">
+            ${{ trade.annotated_pnl|floatformat:2 }}
+          </td>
+          <td>{{ trade.setup }}</td>
+          <td>
+            {% if trade.rr is not None %}
+              {{ trade.rr|floatformat:2 }}
+            {% else %}
+              <span style="color:#888;">—</span>
+            {% endif %}
+            <div style="font-size:11px;color:#666;">
+              entry: {{ trade.entry_price }}, stop: {{ trade.stop_loss }}, target: {{ trade.target_price }}
+            </div>
+          </td>
+          <td>
+            <a href="{% url 'trade-detail' trade.id %}" class="view-btn">View</a>
+            <a href="{% url 'edit-trade' trade.id %}" class="edit-btn">Edit</a>
+            <a href="{% url 'delete-trade' trade.id %}" class="delete-btn">Delete</a>
+          </td>
+          <td>
+            {% if trade.screenshot %}
+            <a href="{{ trade.screenshot.url }}" target="_blank">
+              <img src="{{ trade.screenshot.url }}" alt="Screenshot"
+                   style="height: 60px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.10);" />
+            </a>
+            {% else %}
+            <span style="color: #aaa;">—</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="7" style="padding: 16px; text-align: center; color: #888;">No trades found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

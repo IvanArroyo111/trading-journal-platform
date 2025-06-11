@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TraderCore | Elevate Your Trading</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Main stylesheet for landing page -->
+  <link href="{% static 'css/landing.css' %}" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="nav">
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#about">About</a>
+      <a href="{% url 'login' %}">Sign In</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section with animated background and main call-to-action -->
+  <section class="hero">
+    <canvas class="hero-stars-canvas"></canvas>
+    <canvas class="hero-particles-canvas"></canvas>
+    <img 
+      src="{% static 'images/Globe.png' %}" 
+      alt="" 
+      class="hero-globe-anim" 
+      draggable="false" 
+      aria-hidden="true"
+    >
+    <div class="hero-content">
+      <img 
+        src="{% static 'images/TraderCoreLogo.png' %}" 
+        alt="TraderCore Logo" 
+        class="hero-logo"
+      >
+      <div class="hero-title">Elevate Your Trading</div>
+      <div class="hero-desc">
+        <strong>TraderCore</strong> is the next-generation trading journal and analytics platform.
+      </div>
+      <div class="hero-details">
+        <ul>
+          <li>Track every trade with precision and ease</li>
+          <li>Visualize your performance with advanced charts</li>
+          <li>Analyze strategies and optimize your edge</li>
+          <li>Private, secure, and built for traders</li>
+        </ul>
+      </div>
+      <div class="cta-buttons">
+        <a href="{% url 'register' %}">Get Started Free</a>
+        <a href="#features" class="secondary">See Features</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Bar: Displays key platform statistics -->
+  <div class="stats-bar">
+    {% for stat in stats %}
+      <div class="stat">
+        <div class="stat-title">{{ stat.title }}</div>
+        <div class="stat-value">{{ stat.value }}</div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="cta-divider"></div>
+
+  <!-- Features Section: Highlights main features of the platform -->
+  <section class="features-section" id="features">
+    {% for feature in features %}
+      <div class="feature-card">
+        <img 
+          src="{% static feature.img %}" 
+          alt="{{ feature.alt }}" 
+          class="feature-img"
+        >
+        <div class="feature-title">{{ feature.title }}</div>
+        <div class="feature-desc">{{ feature.desc }}</div>
+      </div>
+    {% endfor %}
+  </section>
+
+  <!-- Footer -->
+  <div class="footer">
+    &copy; 2025 TraderCore. All rights reserved.
+  </div>
+
+  <!-- Landing page animations and interactivity -->
+  <script src="{% static 'js/landing-animations.js' %}"></script>
+</body>
+</html>

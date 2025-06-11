@@ -1,0 +1,94 @@
+{% extends 'dashboard/base_dashboard.html' %}
+
+{% load static %}
+
+{% block title %}Edit Trade{% endblock %}
+
+{% block content %}
+<!-- Edit Trade Stylesheet -->
+<link rel="stylesheet" href="{% static 'css/edit_trade.css' %}">
+
+<div class="add-trade-bg">
+  <div class="add-trade-card">
+    <!-- Edit Trade Form Section -->
+    <div class="add-trade-form-section">
+      <form method="POST" enctype="multipart/form-data" autocomplete="off">
+        {% csrf_token %}
+        <div class="add-trade-form-grid">
+          <h2>Edit Trade</h2>
+          {# Render all fields except notes and screenshot #}
+          {% for field in form.visible_fields %}
+            {% if field.name == "notes" or field.name == "screenshot" %}
+              {# Skipped here, rendered below #}
+            {% else %}
+              <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.help_text %}
+                  <span class="helptext">{{ field.help_text }}</span>
+                {% endif %}
+                {% if field.errors %}
+                  <ul class="errorlist">
+                    {% for error in field.errors %}
+                      <li>{{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </div>
+            {% endif %}
+          {% endfor %}
+          {# Render notes field separately for custom styling #}
+          {% if form.notes %}
+            <div class="form-group form-group-quick-notes">
+              <label for="{{ form.notes.id_for_label }}">Quick Notes</label>
+              <textarea
+                name="{{ form.notes.name }}"
+                id="{{ form.notes.id_for_label }}"
+                rows="2"
+                {% if form.notes.field.required %}required{% endif %}
+              >{{ form.notes.value|default_if_none:'' }}</textarea>
+              {% if form.notes.help_text %}
+                <span class="helptext">{{ form.notes.help_text }}</span>
+              {% endif %}
+              {% if form.notes.errors %}
+                <ul class="errorlist">
+                  {% for error in form.notes.errors %}
+                    <li>{{ error }}</li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </div>
+          {% endif %}
+          {# Render screenshot field separately #}
+          {% if form.screenshot %}
+            <div class="form-group form-group-notes">
+              {{ form.screenshot.label_tag }}
+              {{ form.screenshot }}
+              {% if screenshot_url %}
+                <div class="screenshot-row">
+                  <span>Currently:</span>
+                  <a href="{{ screenshot_url }}" target="_blank">{{ screenshot_url|cut:"/media/" }}</a>
+                </div>
+              {% endif %}
+              {% if form.screenshot.help_text %}
+                <span class="helptext">{{ form.screenshot.help_text }}</span>
+              {% endif %}
+              {% if form.screenshot.errors %}
+                <ul class="errorlist">
+                  {% for error in form.screenshot.errors %}
+                    <li>{{ error }}</li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </div>
+          {% endif %}
+          <button type="submit">
+            Save Changes
+          </button>
+        </div>
+      </form>
+      <a href="{% url 'trade-log' %}" class="cancel-link">Cancel</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

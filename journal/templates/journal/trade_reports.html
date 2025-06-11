@@ -1,0 +1,145 @@
+{% extends 'dashboard/base_dashboard.html' %}
+
+{% load static %}
+
+{% block title %}Reports & Analytics{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/trade_reports.css' %}">
+
+<div class="reports-main-bg">
+  <!-- Header -->
+  <div style="margin-top: -10px; margin-bottom: 30px;">
+    <h1 style="font-family: 'Segoe UI', Arial, sans-serif; font-size: 2.5rem; font-weight: 800; margin-bottom: 8px; letter-spacing: 0.5px; text-transform: uppercase; color: #00e6d0;">
+      Reports & Analytics
+    </h1>
+    <div style="height: 4px; width: 100%; background: linear-gradient(90deg, #00e6d0 0%, #007cf0 100%); border-radius: 2px;"></div>
+  </div>
+
+  <!-- Quick Filters -->
+  <div style="display: flex; gap: 16px; margin-bottom: 32px;">
+    {% for days in quick_ranges %}
+      <a href="?range={{ days }}" class="reports-btn">
+        Last {{ days }} Days
+      </a>
+    {% endfor %}
+    <a href="?range=all" class="reports-btn">
+      All Time
+    </a>
+  </div>
+
+  <!-- KPI Summary Cards -->
+  <div style="display: flex; gap: 24px; margin-bottom: 44px; flex-wrap: wrap;">
+    <div class="kpi-card total-pnl" style="background: #18181c; border-radius: 18px; border: 1.5px solid #23232a; box-shadow: 0 4px 24px 0 rgba(0,0,0,0.18); color: #e0e6ed; min-width: 180px; flex: 1; text-align: center;">
+      <h3 style="color: #b0bac9;">Total PnL</h3>
+      <p style="color: {% if total_pnl >= 0 %}#04b67d{% else %}#bf2424{% endif %};">
+        ${{ total_pnl|floatformat:2 }}
+      </p>
+    </div>
+    <div class="kpi-card win-rate" style="background: #18181c; border-radius: 18px; border: 1.5px solid #23232a; box-shadow: 0 4px 24px 0 rgba(0,0,0,0.18); color: #e0e6ed; min-width: 180px; flex: 1; text-align: center;">
+      <h3 style="color: #b0bac9;">Win Rate</h3>
+      <p style="color: #007cf0;">{{ win_rate|floatformat:2 }}%</p>
+    </div>
+    <div class="kpi-card total-trades" style="background: #18181c; border-radius: 18px; border: 1.5px solid #23232a; box-shadow: 0 4px 24px 0 rgba(0,0,0,0.18); color: #e0e6ed; min-width: 180px; flex: 1; text-align: center;">
+      <h3 style="color: #b0bac9;">Total Trades</h3>
+      <p style="color: #e0e6ed;">{{ total_trades }}</p>
+    </div>
+    <div class="kpi-card rr" style="background: #18181c; border-radius: 18px; border: 1.5px solid #23232a; box-shadow: 0 4px 24px 0 rgba(0,0,0,0.18); color: #e0e6ed; min-width: 180px; flex: 1; text-align: center;">
+      <h3 style="color: #b0bac9;">Avg R:R</h3>
+      <p style="color: #f59e42;">{{ avg_rr|floatformat:2 }}</p>
+    </div>
+  </div>
+
+  <!-- Chart Selection -->
+  <div style="margin-bottom: 24px;">
+    <label for="chartSelect"><strong>Select Chart:</strong></label>
+    <select id="chartSelect" onchange="showChart(this.value)">
+      <option value="equity">Equity Curve</option>
+      <option value="weekday">Win Rate by Weekday</option>
+      <option value="setup">PnL by Setup</option>
+    </select>
+  </div>
+
+  <!-- Chart Containers -->
+  <div id="equityChartContainer" class="chart-container">
+    <canvas id="equityChart" style="width: 100%; height: 100%;"></canvas>
+  </div>
+  <div id="weekdayChartContainer" class="chart-container" style="display: none;">
+    <canvas id="weekdayChart" style="width: 100%; height: 100%;"></canvas>
+  </div>
+  <div id="setupChartContainer" class="chart-container" style="display: none;">
+    <canvas id="setupChart" style="width: 100%; height: 100%;"></canvas>
+  </div>
+
+  <!-- Best & Worst Day Cards -->
+  <div style="display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 44px;">
+    <div class="best-worst-card">
+      <div style="font-size: 2.5rem; margin-bottom: 10px;">🚀</div>
+      <h4>Best Day</h4>
+      {% if best_day.date %}
+        <p><strong>Date:</strong> {{ best_day.date }}</p>
+        <p class="pnl">
+          +${{ best_day.pnl|floatformat:2 }}
+          <span style="font-size: 1.2rem; vertical-align: middle;">▲</span>
+        </p>
+      {% else %}
+        <p>No data</p>
+      {% endif %}
+    </div>
+    <div class="best-worst-card worst">
+      <div style="font-size: 2.5rem; margin-bottom: 10px;">💥</div>
+      <h4>Worst Day</h4>
+      {% if worst_day.date %}
+        <p><strong>Date:</strong> {{ worst_day.date }}</p>
+        <p class="pnl">
+          -${{ worst_day.pnl|floatformat:2 }}
+          <span style="font-size: 1.2rem; vertical-align: middle;">▼</span>
+        </p>
+      {% else %}
+        <p>No data</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Trades Table -->
+  <h3 style="font-size: 1.3rem; font-weight: bold; margin-bottom: 18px; color: #00e6d0;">Trades in Selected Range</h3>
+  <div class="reports-table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Ticker</th>
+          <th>PnL</th>
+          <th>R:R</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for trade in trades %}
+        <tr>
+          <td>{{ trade.date }}</td>
+          <td>{{ trade.ticker }}</td>
+          <td style="font-weight: bold; color: {% if trade.exit_price > trade.entry_price %}#04b67d{% else %}#bf2424{% endif %};">
+            ${{ trade.exit_price|floatformat:2 }} - ${{ trade.entry_price|floatformat:2 }}
+          </td>
+          <td>{{ trade.rr|floatformat:2 }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="4" style="text-align: center; padding: 16px; color: #64748b;">No trades found in this range.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Scripts & Data -->
+{{ equity_dates|json_script:"equity-dates" }}
+{{ equity_values|json_script:"equity-values" }}
+{{ weekday_labels|json_script:"weekday-labels" }}
+{{ weekday_win_rates|json_script:"weekday-data" }}
+{{ setup_labels|json_script:"setup-labels" }}
+{{ setup_values|json_script:"setup-values" }}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{% static 'js/trade_reports.js' %}"></script>
+{% endblock %}

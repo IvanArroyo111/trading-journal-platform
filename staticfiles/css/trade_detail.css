@@ -1,0 +1,110 @@
+/* 
+  Trade Detail Stylesheet
+  -----------------------
+  Styles for the trade detail view.
+  Consistent with the dark dashboard theme.
+*/
+
+/* Base styles for html and body */
+html, body {
+  background: #101014 !important;
+  color: #f4f6fa !important;
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+  min-height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+/* Main background for trade detail page */
+.trade-detail-main-bg {
+  background: #101014 !important;
+  min-height: 100vh;
+  width: 100vw;
+  margin: 0 !important;
+  padding: 0 4vw 40px 2vw;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+/* Primary button styles */
+.reports-btn, .reports-btn:visited {
+  background: linear-gradient(90deg, #00e6d0 60%, #007cf0 100%) !important;
+  color: #101014 !important;
+  border-radius: 12px;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0,230,208,0.08);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
+  text-decoration: none;
+  padding: 12px 24px;
+  display: inline-block;
+  font-size: 1rem;
+  border: none;
+}
+.reports-btn:hover {
+  background: #007cf0 !important;
+  color: #fff !important;
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 6px 16px rgba(0,230,208,0.18);
+}
+.reports-btn.delete {
+  background: linear-gradient(90deg, #e95318 0%, #fc1d46 100%) !important;
+  color: #101014 !important;
+  border: none;
+}
+.reports-btn.delete:hover {
+  background: #fc1d46 !important;
+  color: #fff !important;
+  box-shadow: 0 6px 16px rgba(252,29,70,0.35);
+  transform: translateY(-2px) scale(1.04);
+}
+/* Card container for trade detail */
+.detail-card {
+  background: #18181c !important;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.18);
+  border: 1.5px solid #23232a;
+  color: #e0e6ed;
+}
+/* Content section inside detail card */
+.detail-card-content {
+  padding: 36px;
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+}
+/* Journal card styles */
+.journal-card {
+  background: #18181c !important;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  border: 1.5px solid #23232a;
+  color: #e0e6ed;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  min-width: 340px;
+  flex: 1 1 0;
+}
+/* Journal textarea styles */
+.journal-card textarea {
+  background: #23232a;
+  color: #e0e6ed;
+  border: 1.5px solid #23232a;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  padding: 18px 16px;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 8px rgba(27,98,193,0.04);
+  transition: border 0.2s;
+  resize: vertical;
+  outline: none;
+  line-height: 2;
+  width: 100%;
+}
+.journal-card textarea:focus {
+  border: 1.5px solid #00e6d0;
+}

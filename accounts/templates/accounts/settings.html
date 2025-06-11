@@ -1,0 +1,70 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+
+{% block title %}Settings{% endblock %}
+
+{% block content %}
+<!-- Main stylesheet for settings page -->
+<link href="{% static 'css/settings.css' %}" rel="stylesheet">
+
+<div class="settings-main-bg">
+  <div class="settings-card">
+    <h2>Account Settings</h2>
+
+    <!-- Display Django messages (success, error, etc.) -->
+    {% if messages %}
+      <div style="margin-bottom:18px;">
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}" style="padding:10px 14px;border-radius:8px;margin-bottom:8px;
+            {% if message.tags == 'success' %}background:#00e6d0;color:#101014;{% elif message.tags == 'error' %}background:#fc1d46;color:#fff;{% else %}background:#23232a;color:#e0e6ed;{% endif %}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <!-- Email Update Form -->
+    <form method="post" autocomplete="off">
+      {% csrf_token %}
+      <div class="settings-form-group">
+        <label for="id_email">Email Address</label>
+        <input type="email" name="email" id="id_email" value="{{ user.email }}" required>
+      </div>
+      <button type="submit">Update Email</button>
+    </form>
+
+    <!-- Password Change Form -->
+    <form method="post" autocomplete="off" style="margin-top: 32px;">
+      {% csrf_token %}
+      <div class="settings-form-group">
+        <label for="id_old_password">Current Password</label>
+        <input type="password" name="old_password" id="id_old_password" required>
+      </div>
+      <div class="settings-form-group">
+        <label for="id_new_password1">New Password</label>
+        <input type="password" name="new_password1" id="id_new_password1" required>
+      </div>
+      <div class="settings-form-group">
+        <label for="id_new_password2">Confirm New Password</label>
+        <input type="password" name="new_password2" id="id_new_password2" required>
+      </div>
+      <button type="submit">Change Password</button>
+    </form>
+
+    <!-- Danger Zone: Account Deletion -->
+    <div class="danger-zone">
+      <h3>Danger Zone</h3>
+      <form method="post" autocomplete="off" id="delete-account-form">
+        {% csrf_token %}
+        <button type="submit" name="delete_account" id="delete-account-btn">Delete Account</button>
+      </form>
+      <p style="color:#b0bac9;font-size:0.98rem;margin-top:10px;">
+        This action is irreversible. All your trades and data will be permanently deleted.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Settings page interactivity -->
+<script src="{% static 'js/settings.js' %}"></script>
+{% endblock %}

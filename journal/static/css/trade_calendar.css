@@ -1,0 +1,276 @@
+/* 
+  Trade Calendar Stylesheet
+  ------------------------
+  Styles for the trade calendar and trade log table.
+  Consistent with the dark dashboard theme.
+*/
+
+/* Base styles for html and body */
+html, body {
+  background: #101014 !important;
+  color: #f4f6fa !important;
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+  min-height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+/* Main background for trade log/calendar */
+.trade-log-main-bg {
+  background: #101014 !important;
+  min-height: 100vh;
+  width: 100vw;
+  margin: 0 !important;
+  padding: 0 4vw 40px 2vw;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+/* Card container for trade log/calendar */
+.trade-log-card {
+  background: #18181c !important;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.18);
+  border: 1.5px solid #23232a;
+  color: #e0e6ed;
+}
+
+/* Primary button styles */
+.trade-log-btn, .trade-log-btn:visited {
+  background: linear-gradient(90deg, #00e6d0 60%, #007cf0 100%) !important;
+  color: #101014 !important;
+  border-radius: 12px;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0,230,208,0.08);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
+  text-decoration: none;
+  padding: 12px 24px;
+  display: inline-block;
+  font-size: 1rem;
+  border: none;
+}
+.trade-log-btn:hover {
+  background: #007cf0 !important;
+  color: #fff !important;
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 6px 16px rgba(0,230,208,0.18);
+}
+
+/* Table wrapper and table styles */
+.trade-log-table-wrapper {
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,230,208,0.07);
+  background: #18181c;
+  margin-bottom: 32px;
+}
+table {
+  background: #18181c !important;
+  color: #e0e6ed !important;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+th, td {
+  border: 1px solid #23232a !important;
+}
+th {
+  background: #23232a !important;
+  color: #00e6d0 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 13px;
+  padding: 14px;
+}
+td {
+  padding: 12px;
+}
+tr {
+  transition: background 0.15s;
+}
+tr:hover {
+  background: #23232a !important;
+}
+
+/* Ticker link styles */
+.trade-ticker-link {
+  background-color: #23232a;
+  color: #00e6d0;
+  padding: 4px 14px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 15px;
+  transition: background 0.15s, color 0.15s;
+}
+.trade-ticker-link:hover {
+  background: #00e6d0;
+  color: #101014;
+}
+
+/* Edit and delete button styles */
+.edit-btn {
+  background: transparent;
+  color: #00e6d0;
+  border: 2px solid #00e6d0;
+  padding: 6px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  margin-right: 8px;
+  transition: background 0.15s, color 0.15s, border 0.15s;
+}
+.edit-btn:hover {
+  background: #00e6d0;
+  color: #101014;
+  border-color: #00e6d0;
+}
+.delete-btn {
+  background: transparent;
+  color: #dc2626;
+  border: 2px solid #dc2626;
+  padding: 6px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.15s, color 0.15s, border 0.15s;
+}
+.delete-btn:hover {
+  background: #dc2626;
+  color: #fff;
+  border-color: #dc2626;
+}
+
+/* Responsive padding for trade log background */
+@media (max-width: 900px) {
+  .trade-log-main-bg {
+    padding-left: 2vw;
+    padding-right: 2vw;
+  }
+}
+@media (max-width: 600px) {
+  .trade-log-main-bg {
+    padding-left: 0.5vw;
+    padding-right: 0.5vw;
+  }
+}
+
+/* FullCalendar dark mode overrides */
+.fc .fc-daygrid-day-frame {
+  min-height: 160px;
+  background: #18181c !important;
+}
+.fc .fc-daygrid-day-bg .fc-bg-event {
+  opacity: 0.13 !important;
+}
+.fc .fc-bg-event {
+  border-radius: 8px !important;
+}
+.fc-theme-standard .fc-scrollgrid,
+.fc-theme-standard td, .fc-theme-standard th {
+  background: #18181c !important;
+  color: #e0e6ed !important;
+  border-color: #23232a !important;
+}
+.fc .fc-toolbar-title {
+  color: #fff !important;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.fc .fc-prev-button, .fc .fc-next-button {
+  background: transparent !important;
+  color: #00e6d0 !important;
+  border: 2px solid #00e6d0 !important;
+  border-radius: 8px !important;
+  font-weight: 700;
+  box-shadow: none !important;
+  transition: background 0.18s, color 0.18s, border 0.18s;
+}
+.fc .fc-prev-button:hover, .fc .fc-next-button:hover,
+.fc .fc-prev-button:focus, .fc .fc-next-button:focus {
+  background: transparent !important;
+  color: #00e6d0 !important;
+  border: 2px solid #00e6d0 !important;
+  box-shadow: 0 0 0 2px #00e6d0333;
+}
+.fc .fc-prev-button .fc-icon, .fc .fc-next-button .fc-icon {
+  color: #00e6d0 !important;
+  font-size: 1.3em;
+  filter: none !important;
+}
+.fc .fc-prev-button:hover .fc-icon, .fc .fc-next-button:hover .fc-icon,
+.fc .fc-prev-button:focus .fc-icon, .fc .fc-next-button:focus .fc-icon {
+  color: #00e6d0 !important;
+}
+.fc .fc-button.fc-today-button {
+  background: transparent !important;
+  color: #00e6d0 !important;
+  border: 2px solid #00e6d0 !important;
+  font-weight: 700;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  transition: background 0.18s, color 0.18s, border 0.18s;
+}
+.fc .fc-button.fc-today-button:hover, .fc .fc-button.fc-today-button:focus {
+  background: transparent !important;
+  color: #00e6d0 !important;
+  border: 2px solid #00e6d0 !important;
+  box-shadow: 0 0 0 2px #00e6d033;
+}
+.fc .fc-button:not(.fc-today-button):not(.fc-prev-button):not(.fc-next-button) {
+  background: linear-gradient(90deg, #00e6d0 60%, #007cf0 100%) !important;
+  color: #101014 !important;
+  border-radius: 8px !important;
+  border: none !important;
+  font-weight: 700;
+  transition: background 0.18s, color 0.18s;
+}
+.fc .fc-button:not(.fc-today-button):not(.fc-prev-button):not(.fc-next-button):hover {
+  background: #007cf0 !important;
+  color: #fff !important;
+}
+
+/* Remove outlines and box-shadows from FullCalendar events and children */
+.fc-event, .fc-event *, 
+.fc-event:focus, .fc-event:active,
+.fc-event *:focus, .fc-event *:active,
+.fc-daygrid-event, .fc-daygrid-event *,
+.fc-daygrid-event:focus, .fc-daygrid-event:active,
+.fc-daygrid-event *:focus, .fc-daygrid-event *:active,
+.fc-daygrid-dot-event, .fc-daygrid-dot-event *,
+.fc-daygrid-dot-event:focus, .fc-daygrid-dot-event:active,
+.fc-daygrid-dot-event *:focus, .fc-daygrid-dot-event *:active,
+.fc-daygrid-block-event, .fc-daygrid-block-event *,
+.fc-daygrid-block-event:focus, .fc-daygrid-block-event:active,
+.fc-daygrid-block-event *:focus, .fc-daygrid-block-event *:active,
+.fc-event[tabindex], .fc-event[tabindex]:focus, .fc-event[tabindex]:active,
+.fc-event[tabindex]:focus-visible,
+.fc-event a:focus, .fc-event a:active, .fc-event a:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+.fc-daygrid-event {
+  box-shadow: none !important;
+  outline: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  font-size: 2.6rem !important;
+  font-weight: 900 !important;
+  background: transparent !important;
+  border: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  letter-spacing: 0.5px;
+  transition: color 0.2s, text-shadow 0.2s;
+  pointer-events: none;
+  user-select: none;
+}
+.fc-daygrid-event-dot {
+  display: none !important;
+}

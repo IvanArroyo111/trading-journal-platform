@@ -1,0 +1,216 @@
+/* 
+  Trade Reports Stylesheet
+  -----------------------
+  Styles for the analytics/reports page.
+  Consistent with the dark dashboard theme.
+*/
+
+/* Base styles for html and body */
+html, body {
+  background: #101014 !important;
+  color: #f4f6fa !important;
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+  min-height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+/* Main background for reports page */
+.reports-main-bg {
+  background: #101014 !important;
+  min-height: 100vh;
+  width: 100vw;
+  margin: 0 !important;
+  padding: 0 4vw 40px 2vw;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+/* Card container for reports */
+.reports-card {
+  background: #18181c !important;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.18);
+  border: 1.5px solid #23232a;
+  color: #e0e6ed;
+}
+/* Primary button styles */
+.reports-btn, .reports-btn:visited {
+  background: linear-gradient(90deg, #00e6d0 60%, #007cf0 100%) !important;
+  color: #101014 !important;
+  border-radius: 12px;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0,230,208,0.08);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
+  text-decoration: none;
+  padding: 12px 24px;
+  display: inline-block;
+  font-size: 1rem;
+  border: none;
+}
+.reports-btn:hover {
+  background: #007cf0 !important;
+  color: #fff !important;
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 6px 16px rgba(0,230,208,0.18);
+}
+/* KPI card styles */
+.kpi-card {
+  flex: 1;
+  min-width: 200px;
+  background: #18181c;
+  padding: 24px;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0,230,208,0.07);
+  text-align: center;
+  border: 1.5px solid #23232a;
+  margin-bottom: 12px;
+}
+.kpi-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #00e6d0;
+  letter-spacing: 0.5px;
+}
+.kpi-card p {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+}
+.kpi-card.win-rate p { color: #19e37d; }
+.kpi-card.total-trades p { color: #fbbf24; }
+.kpi-card.rr p { color: #60a5fa; }
+/* Chart container styles */
+.chart-container {
+  background: #18181c !important;
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 2px 12px rgba(0,230,208,0.07);
+  border: 1.5px solid #23232a;
+  margin-bottom: 32px;
+  height: 750px;
+}
+/* Best/Worst trade card styles */
+.best-worst-card {
+  flex: 1;
+  background: #18181c;
+  padding: 32px 24px;
+  border-radius: 18px;
+  box-shadow: 0 4px 16px rgba(0,230,208,0.10);
+  border: 2px solid #00e6d0;
+  transition: 
+    transform 0.25s cubic-bezier(.22,1.12,.62,1.01),
+    box-shadow 0.22s cubic-bezier(.22,1.12,.62,1.01),
+    filter 0.22s cubic-bezier(.22,1.12,.62,1.01);
+  text-align: center;
+  margin-bottom: 12px;
+  cursor: pointer;
+  will-change: transform, box-shadow, filter;
+  position: relative;
+  z-index: 1;
+}
+.best-worst-card:hover {
+  transform: scale(1.06) rotate(-2deg);
+  box-shadow: 0 8px 32px rgba(0,230,208,0.18), 0 2px 24px #00e6d0;
+  filter: brightness(1.08) drop-shadow(0 0 8px #00e6d0aa);
+  z-index: 2;
+}
+.best-worst-card.worst {
+  border-color: #dc2626;
+  box-shadow: 0 4px 16px rgba(239,68,68,0.10);
+}
+.best-worst-card.worst:hover {
+  box-shadow: 0 8px 32px rgba(239,68,68,0.18), 0 2px 24px #dc2626;
+  transform: scale(1.06) rotate(2deg);
+  filter: brightness(1.08) drop-shadow(0 0 8px #dc2626aa);
+}
+.best-worst-card h4 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #00e6d0;
+}
+.best-worst-card.worst h4 {
+  color: #dc2626;
+}
+.best-worst-card p {
+  color: #e0e6ed;
+}
+.best-worst-card .pnl {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+  color: #19e37d;
+}
+.best-worst-card.worst .pnl {
+  color: #ff4d6d;
+}
+/* Reports table wrapper and table styles */
+.reports-table-wrapper {
+  background: #18181c;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0,230,208,0.08);
+  overflow: hidden;
+  margin-bottom: 32px;
+  border: 1.5px solid #23232a;
+}
+table {
+  background: #18181c !important;
+  color: #e0e6ed !important;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+th, td {
+  border: 1px solid #23232a !important;
+}
+th {
+  background: #23232a !important;
+  color: #00e6d0 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 13px;
+  padding: 14px;
+}
+td {
+  padding: 12px;
+}
+tr {
+  transition: background 0.15s;
+}
+tr:hover {
+  background: #23232a !important;
+}
+/* Select and option styles */
+select, option {
+  background: #18181c;
+  color: #00e6d0;
+  border: 1px solid #00e6d0;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 1rem;
+  font-weight: 600;
+  outline: none;
+  margin-left: 8px;
+}
+/* Label styles */
+label {
+  color: #00e6d0;
+  font-weight: 600;
+}
+/* Responsive padding for reports background and KPI cards */
+@media (max-width: 900px) {
+  .reports-main-bg {
+    padding-left: 2vw;
+    padding-right: 2vw;
+  }
+}
+@media (max-width: 600px) {
+  .reports-main-bg {
+    padding-left: 0.5vw;
+    padding-right: 0.5vw;
+  }
+  .kpi-card { min-width: 140px; }
+}

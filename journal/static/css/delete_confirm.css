@@ -1,0 +1,148 @@
+/* 
+  Delete Confirmation Stylesheet
+  -----------------------------
+  Styles for the delete confirmation dialog.
+  Consistent with the dark dashboard theme.
+*/
+
+/* Base styles for html and body */
+html, body {
+  background: #101014 !important;
+  color: #f4f6fa !important;
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+/* Main background for delete confirmation */
+.delete-bg {
+  background: #101014 !important;
+  min-height: 100vh;
+  width: 100vw;
+  margin: 0 !important;
+  padding: 0 4vw 40px 2vw;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+/* Card container for delete confirmation */
+.delete-card {
+  background: #18181c !important;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.18);
+  border: 1.5px solid #23232a;
+  color: #e0e6ed;
+  width: 100%;
+  max-width: 500px;
+  margin: 60px 0 0 0;
+  padding: 36px 36px 28px 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 320px;
+}
+
+/* Heading styles */
+.delete-card h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 18px;
+  letter-spacing: 0.5px;
+  color: #ff4d6d;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* Description text styles */
+.delete-card p {
+  color: #e0e6ed;
+  font-size: 1.1rem;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+/* Actions container styles */
+.delete-card .delete-actions {
+  display: flex;
+  gap: 18px;
+  width: 100%;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+/* Confirm delete button styles */
+.delete-card button[type="submit"] {
+  background: linear-gradient(90deg, #ff4d6d 60%, #dc2626 100%) !important;
+  color: #fff !important;
+  border-radius: 12px;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(255,77,109,0.08);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
+  text-decoration: none;
+  padding: 14px 32px;
+  font-size: 1.1rem;
+  border: none;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+}
+.delete-card button[type="submit"]:hover {
+  background: #dc2626 !important;
+  color: #fff !important;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 16px rgba(255,77,109,0.18);
+}
+
+/* Cancel link styles */
+.delete-card .cancel-link {
+  background: #23232a;
+  color: #b0bac9 !important;
+  border-radius: 10px;
+  padding: 14px 32px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: 1.5px solid #374151;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s, border 0.2s, transform 0.2s;
+  display: inline-block;
+}
+.delete-card .cancel-link:hover {
+  background: #374151;
+  color: #fff !important;
+  border-color: #00e6d0;
+  transform: translateY(-2px) scale(1.03);
+}
+
+/* Warning message styles */
+.delete-card .delete-warning {
+  color: #ff4d6d;
+  font-size: 1rem;
+  margin-bottom: 18px;
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+/* Responsive styles for mobile */
+@media (max-width: 600px) {
+  .delete-card {
+    padding: 16px 4vw 16px 4vw;
+    min-width: unset;
+    max-width: 98vw;
+  }
+  .delete-card .delete-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .delete-card button[type="submit"],
+  .delete-card .cancel-link {
+    width: 100%;
+    padding: 12px 0;
+    font-size: 1rem;
+  }
+}

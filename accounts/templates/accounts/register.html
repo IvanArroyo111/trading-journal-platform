@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up | TraderCore</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Main stylesheet for register page -->
+    <link href="{% static 'css/register.css' %}" rel="stylesheet">
+</head>
+<body>
+  <div class="login-container">
+    <!-- TraderCore Logo -->
+    <img 
+      src="{% static 'images/TraderCoreLogo.png' %}" 
+      alt="TraderCore Logo" 
+      class="login-logo"
+    >
+    <!-- Registration Title and Description -->
+    <div class="login-title">Sign Up</div>
+    <div class="login-desc">Create your TraderCore account.</div>
+    <!-- Error Message for Invalid Registration -->
+    {% if form.errors %}
+      <div class="login-error">
+        Please check the form and try again.
+      </div>
+    {% endif %}
+    <!-- Registration Form -->
+    <form method="POST" autocomplete="off">
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="login-form-group">
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field }}
+          {% if field.errors %}
+            <!-- Field-specific error message -->
+            <div style="color:#bf2424;font-size:0.97rem;margin-top:2px;">
+              {{ field.errors|striptags }}
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+      <button type="submit" class="login-btn">Sign Up</button>
+    </form>
+    <!-- Login Link -->
+    <div class="login-links">
+      <span>Already have an account?</span>
+      <a href="{% url 'login' %}">Sign In</a>
+    </div>
+  </div>
+</body>
+</html>

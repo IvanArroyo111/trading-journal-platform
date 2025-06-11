@@ -1,0 +1,53 @@
+{% extends 'dashboard/base_dashboard.html' %}
+
+{% load static %}
+
+{% block title %}All Trades{% endblock %}
+
+{% block content %}
+<!-- Trade Calendar Stylesheet -->
+<link rel="stylesheet" href="{% static 'css/trade_calendar.css' %}">
+
+<div class="trade-log-main-bg">
+  <!-- Header Section -->
+  <div style="margin-top: -10px; margin-bottom: 30px;">
+    <h1 style="font-family: 'Segoe UI', Arial, sans-serif; font-size: 2.5rem; font-weight: 800; margin-bottom: 8px; letter-spacing: 0.5px; text-transform: uppercase; color: #00e6d0;">
+      Trade Calendar
+    </h1>
+    <div style="height: 4px; width: 100%; background: linear-gradient(90deg, #00e6d0 0%, #007cf0 100%); border-radius: 2px;"></div>
+  </div>
+
+  <!-- Trade Calendar Section -->
+  <div class="calendar-bottom-space">
+    <div class="trade-log-card" style="padding: 32px 32px 24px 32px; margin-bottom: 18px;">
+      <div style="padding-top: 0;">
+        <div id="calendar"></div>
+      </div>
+    </div>
+
+    <!-- FullCalendar CSS/JS (CDN) -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+
+    <!-- Inject daily PnL data for calendar rendering -->
+    <script>
+      window.dailyPnlData = [
+        {% for day in daily_pnl %}
+        {
+          start: '{{ day.date|date:"Y-m-d" }}',
+          display: 'background',
+          backgroundColor: '{% if day.total_pnl >= 0 %}#1b4d3e{% else %}#4d1b1b{% endif %}',
+        },
+        {
+          title: '${{ day.total_pnl|floatformat:0 }}',
+          start: '{{ day.date|date:"Y-m-d" }}',
+          backgroundColor: 'transparent',
+          textColor: '{% if day.total_pnl >= 0 %}#19e37d{% else %}#ff4d6d{% endif %}'
+        }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+      ];
+    </script>
+    <!-- Trade Calendar Script -->
+    <script src="{% static 'js/trade_calendar.js' %}"></script>
+  </div>
+{% endblock %}

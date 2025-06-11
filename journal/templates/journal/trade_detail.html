@@ -1,0 +1,97 @@
+{% extends 'dashboard/base_dashboard.html' %}
+
+{% load static %}
+
+{% block title %}Trade Details{% endblock %}
+
+{% block content %}
+<!-- Trade Detail Stylesheet -->
+<link rel="stylesheet" href="{% static 'css/trade_detail.css' %}">
+
+<div class="trade-detail-main-bg">
+  <!-- Header Section -->
+  <div style="margin-top: -10px; margin-bottom: 30px;">
+    <h1 style="font-family: 'Segoe UI', Arial, sans-serif; font-size: 2.5rem; font-weight: 800; margin-bottom: 8px; letter-spacing: 0.5px; text-transform: uppercase; color: #00e6d0;">
+      Trade Details
+    </h1>
+    <div style="height: 4px; width: 100%; background: linear-gradient(90deg, #00e6d0 0%, #007cf0 100%); border-radius: 2px;"></div>
+  </div>
+
+  <!-- Main Content Layout -->
+  <div style="display: flex; gap: 32px; align-items: stretch; flex-wrap: nowrap; min-height: 70vh;">
+
+    <!-- Trade Details Card -->
+    <div class="detail-card" style="flex: 1 1 0; min-width: 300px; max-width: 370px;">
+      <div class="detail-card-content" style="padding: 36px;">
+        <div style="display: grid; grid-template-columns: 1fr 1.2fr; row-gap: 16px; column-gap: 18px;">
+          <div style="color: #b0bac9; font-weight: 700;">Date</div>
+          <div style="color: #e0e6ed;">{{ trade.date }}</div>
+          <div style="color: #b0bac9; font-weight: 700;">Ticker</div>
+          <div style="color: #e0e6ed; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ trade.ticker }}</div>
+          <div style="color: #b0bac9; font-weight: 700;">PnL</div>
+          <div style="font-weight: bold; color: {% if trade.pnl >= 0 %}#19e37d{% else %}#ff4d6d{% endif %}; font-size: 1.15rem;">
+            ${{ trade.pnl|floatformat:2 }}
+          </div>
+          <div style="color: #b0bac9; font-weight: 700;">Entry</div>
+          <div style="color: #e0e6ed;">{{ trade.entry_price }}</div>
+          <div style="color: #b0bac9; font-weight: 700;">Exit</div>
+          <div style="color: #e0e6ed;">{{ trade.exit_price }}</div>
+          <div style="color: #b0bac9; font-weight: 700;">Size</div>
+          <div style="color: #e0e6ed;">{{ trade.position_size }}</div>
+          <div style="color: #b0bac9; font-weight: 700;">Stop</div>
+          <div style="color: #e0e6ed;">{{ trade.stop_loss }}</div>
+          <div style="color: #b0bac9; font-weight: 700;">Target</div>
+          <div style="color: #e0e6ed;">{{ trade.target_price }}</div>
+          <div style="color: #b0bac9; font-weight: 700;">Setup</div>
+          <div style="color: #e0e6ed;">{{ trade.setup }}</div>
+          <div style="color: #b0bac9; font-weight: 700;">Quick Note</div>
+          <div style="color: #b0bac9;">{{ trade.notes }}</div>
+          <div style="color: #b0bac9; font-weight: 700;">Tags</div>
+          <div>
+            {% for tag in tags %}
+              <span style="display: inline-block; background: #23232a; color: #00e6d0; border-radius: 8px; padding: 2px 10px; margin-right: 6px; font-size: 0.95em;">{{ tag }}</span>
+            {% empty %}
+              <span style="color: #b0b8c9;">No tags</span>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Screenshot Card -->
+    <div class="detail-card" style="flex: 1.2 1 0; min-width: 340px; max-width: 600px; display: flex; align-items: center; justify-content: center;">
+      <div class="detail-card-content" style="padding: 36px; width: 100%; display: flex; align-items: center; justify-content: center;">
+        {% if trade.screenshot %}
+          <a href="{{ trade.screenshot.url }}" target="_blank" style="display: block; width: 100%;">
+            <img src="{{ trade.screenshot.url }}" alt="Screenshot"
+                 style="max-width: 100%; max-height: 700px; min-width: 320px; width: 100%; border-radius: 18px; box-shadow: 0 2px 18px rgba(0,0,0,0.13); object-fit: contain; background: #23232a;" />
+          </a>
+        {% else %}
+          <span style="color: #b0b8c9; font-size: 1.1rem;">No screenshot available</span>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Journal Entry Section -->
+    <div class="journal-card">
+      <h2 style="font-family: 'Segoe UI', Arial, sans-serif; font-size: 1.6rem; color: #e0e6ed; margin-bottom: 18px; font-weight: 700; letter-spacing: 1px;">
+        Journal Entry
+      </h2>
+      <form method="post" action="{% url 'save-journal-entry' trade.id %}" style="flex: 1; display: flex; flex-direction: column;">
+        {% csrf_token %}
+        <textarea name="journal_entry" rows="16" placeholder="Write your thoughts here...">{% if trade.journal_entry %}{{ trade.journal_entry }}{% endif %}</textarea>
+        <button type="submit" class="reports-btn" style="align-self: flex-end;">Save</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Navigation Buttons -->
+  <div style="margin-top: 32px; display: flex; flex-wrap: wrap; gap: 14px;">
+    <a href="{% url 'edit-trade' trade.id %}" class="reports-btn">Edit</a>
+    <a href="{% url 'delete-trade' trade.id %}" class="reports-btn delete">Delete</a>
+    <a href="{% url 'dashboard-home' %}" class="reports-btn">Back to Dashboard</a>
+    <a href="{% url 'trade-log' %}" class="reports-btn">Back to Trade Log</a>
+  </div>
+</div>
+
+{% endblock %}
