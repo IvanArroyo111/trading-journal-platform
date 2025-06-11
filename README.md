@@ -40,3 +40,19 @@ Password: `DemoPass123`
 - Other: Django Auth System, Static Files Management, Custom Templates
 
 ---
+
+## Project Structure
+
+```
+├── trading_journal/
+│ ├── accounts/            # Authentication and user-related views
+│ ├── dashboard/           # Dashboard UI and logic
+│ ├── journal/             # Trade journal models, views, and forms
+│ ├── media/               # Uploaded screenshots and media files
+│ ├── staticfiles/         # Custom CSS, JS, images
+│ └── trading_journal/     # Core Django project settings and URLs
+├── venv/                  # Python virtual environment
+├── db.sqlite3             # SQLite database (dev only)
+├── manage.py              # Django project manager script
+├── requirements.txt       # Python dependencies
+```
