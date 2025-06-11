@@ -44,6 +44,7 @@ Password: `DemoPass123`
 ## Project Structure
 
 TRADINGJOURNALPLATFORM/
+
 ├── trading_journal/
 
 │ ├── accounts/ # Authentication and user-related views
