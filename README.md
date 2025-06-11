@@ -63,5 +63,4 @@ TRADINGJOURNALPLATFORM/
 ├── db.sqlite3 # SQLite database (dev only)
 
 ├── manage.py # Django project manager script
-
 ├── requirements.txt # Python dependencies
