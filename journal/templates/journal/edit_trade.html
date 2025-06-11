@@ -63,13 +63,19 @@
           {% if form.screenshot %}
             <div class="form-group form-group-notes">
               {{ form.screenshot.label_tag }}
-              {{ form.screenshot }}
               {% if screenshot_url %}
                 <div class="screenshot-row">
                   <span>Currently:</span>
                   <a href="{{ screenshot_url }}" target="_blank">{{ screenshot_url|cut:"/media/" }}</a>
                 </div>
+                {% if form.screenshot.field.widget.clear_checkbox_label %}
+                  <label>
+                    <input type="checkbox" name="{{ form.screenshot.html_name }}-clear" id="id_{{ form.screenshot.html_name }}-clear">
+                    {{ form.screenshot.field.widget.clear_checkbox_label }}
+                  </label>
+                {% endif %}
               {% endif %}
+              <input type="file" name="{{ form.screenshot.html_name }}" id="{{ form.screenshot.id_for_label }}">
               {% if form.screenshot.help_text %}
                 <span class="helptext">{{ form.screenshot.help_text }}</span>
               {% endif %}
