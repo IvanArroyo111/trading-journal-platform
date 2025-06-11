@@ -56,3 +56,5 @@ Password: `DemoPass123`
 ├── manage.py              # Django project manager script
 ├── requirements.txt       # Python dependencies
 ```
+
+---
